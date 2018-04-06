@@ -10,9 +10,10 @@
 	class hava_durumu {
 
 		function hava_durumu($sehir) {
-            $api ="xxxxxxxxxxxxxx"; // sizin api kodunuz
+            $api ="xxxxxxxxxxxxxx";// sizin api kodunuz
+            $this->api =$api;
 			$json_string = file_get_contents("http://api.wunderground.com/api/$api/forecast10day/lang:TR/q/TR/$sehir.json");
-			$json_saat_string = file_get_contents("http://api.wunderground.com/api/bcaff2d0089ec5ab/hourly/lang:TR/q/TR/$sehir.json");
+			$json_saat_string = file_get_contents("http://api.wunderground.com/api/$api/hourly/lang:TR/q/TR/$sehir.json");
 			$parsed_json = json_decode($json_string);
 			$parsed_saat_json = json_decode($json_saat_string);
 			$this->sehir = $sehir;
@@ -27,7 +28,7 @@
 
 			$bugun_tarih = $this->json->{'forecast'}->{'simpleforecast'}->{'forecastday'}[0]->{'date'}->{'pretty'};
 			$bho_tarih = date('Ymd', strtotime('-1 weeks'));
-			$json_string_honce = file_get_contents("http://api.wunderground.com/api/bcaff2d0089ec5ab/history_$bho_tarih/lang:TR/q/TR/$this->sehir.json");
+			$json_string_honce = file_get_contents("http://api.wunderground.com/api/$this->api/history_$bho_tarih/lang:TR/q/TR/$this->sehir.json");
 			$parsed_saat_hojson = json_decode($json_string_honce);
 			$ho_hava_durumu = $parsed_saat_hojson->{'history'}->{'dailysummary'}[0]->{'meantempm'};
 			$gun = $this->json->{'forecast'}->{'txt_forecast'}->{'forecastday'}[0]->{'title'};
