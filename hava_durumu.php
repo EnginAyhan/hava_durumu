@@ -10,8 +10,8 @@
 	class hava_durumu {
 
 		function hava_durumu($sehir) {
-
-			$json_string = file_get_contents("http://api.wunderground.com/api/bcaff2d0089ec5ab/forecast10day/lang:TR/q/TR/$sehir.json");
+            $api ="xxxxxxxxxxxxxx"; // sizin api kodunuz
+			$json_string = file_get_contents("http://api.wunderground.com/api/$api/forecast10day/lang:TR/q/TR/$sehir.json");
 			$json_saat_string = file_get_contents("http://api.wunderground.com/api/bcaff2d0089ec5ab/hourly/lang:TR/q/TR/$sehir.json");
 			$parsed_json = json_decode($json_string);
 			$parsed_saat_json = json_decode($json_saat_string);
